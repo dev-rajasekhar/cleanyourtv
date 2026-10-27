@@ -1,0 +1,10 @@
+package:com.alphainventor.filemanager
+package:com.sonyliv
+package:android.autoinstalls.config.xiaomi.amelie
+package:in.startv.hotstar
+package:com.suntv.sunnxt
+package:com.graymatrix.did
+package:com.fancode.tv
+package:com.htlabs.ottplay
+package:com.hungama.movies.xtv
+package:com.apple.atve.androidtv.appletv

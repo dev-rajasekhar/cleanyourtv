@@ -1,0 +1,65 @@
+# Xiaomi MiTV-AXSO2 (dangalUHD), Android TV 9 (SDK 28), firmware PI.6432 - this household's list.
+# Based on examples/xiaomi-mitv-axso2/debloat.txt, trimmed to what is installed here and to the owner's answers.
+#
+# Apply:   TV_HOST=192.168.1.15 TVINPUT_ALLOW=1 tools/disable.sh work/mitv-axso2/debloat.txt
+#          TVINPUT_ALLOW=1 because disable.sh cannot read a permission block for leanbacklauncher.recommendations
+#          and the two autoinstalls.config packages and holds them back as possible input drivers. They are not:
+#          every input (HDMI 1-4, AV, tuners, ARC) is served by com.droidlogic.tvinput, which is not on this list,
+#          and HDMI switched fine after they were disabled and the TV rebooted (2026-10-27).
+# Undo:    work/mitv-axso2/restore.sh   (or TV_HOST=192.168.1.15 tools/restore.sh work/mitv-axso2/debloat.txt)
+# Everything is DISABLED, not uninstalled. Comment out a line and run restore + apply again to keep an app.
+#
+# Kept on purpose (owner's choice): Google Assistant (katniss, pumpkin), Chromecast (mediashell),
+# Miracast (wfdsinkhelperservice + com.xiaomi.mitv.smartshare, which holds the Miracast screen), the
+# firmware updater (com.xiaomi.mitv.updateservice), and Netflix, Prime Video, YouTube, JioHotstar,
+# Apple TV, Sony LIV, ZEE5, Sun NXT, FanCode, OTTplay.
+# Not on the list, also kept: com.mitv.dream (Mi screensaver settings), com.mitv.tvlock, com.mitv.videoplayer,
+# com.xiaomi.mitv.mediaexplorer (USB Media Player), com.xiaomi.android.TV.audio, partnercustomizer.
+#
+# Notes from this TV:
+# - Nothing came back on its own after three reboots.
+# - Mic button = scancode 582 -> ASSIST; Google Assistant works with this launcher as Home.
+# - Power-on: Xiaomi's framework reopens com.android.tv at boot and wake while global set_auto_play=1
+#   (Settings, "Stay on the previous source"). Set to 0, the TV lands on Home with no key helper.
+# - A bound HomeKeyService (capabilities=8) costs the volume ramp here: held Volume Up gave 16 repeats
+#   without it, 0 with it (sound over HDMI-CEC to a soundbar).
+# - The remote's PatchWall button does nothing once com.mitv.tvhome.atv is disabled.
+
+# Batch 1 - Xiaomi + Google telemetry
+com.miui.tv.analytics
+com.xiaomi.statistic
+com.google.android.feedback
+com.google.android.tv.bugreportsender
+
+# Batch 2 - PatchWall, content rows, partner auto-installs
+com.mitv.tvhome.atv                                 # PatchWall; the remote's PatchWall button then does nothing
+com.xm.webcontent
+com.xiaomi.floatingframe
+com.google.android.tvrecommendations                # also feeds the notification panel, see the sign-in note in README
+com.google.android.leanbacklauncher.recommendations
+android.autoinstalls.config.xiaomi.amelie           # Play auto-install of partner apps
+android.autoinstalls.config.xioami.dangal           # Play auto-install of partner apps (sic, "xioami")
+
+# Batch 3 - Xiaomi background services
+com.xiaomi.mitv.tvmanager                           # "TV Manager" cleaner
+com.xiaomi.mitv.handbook
+com.xiaomo.tv.milegal                               # static legal / privacy text screens
+com.mitv.milinkservice                              # Mi Cast / Mi Remote discovery (owner doesn't use Mi Cast)
+# com.xiaomi.mitv.updateservice                     # firmware updates: kept (owner's choice)
+
+# Batch 4 - preloaded apps the owner doesn't use
+com.xiaomi.mimusic2
+com.mitv.gallery                                    # Mi Gallery; Media Player still opens USB photos
+com.google.android.videos                           # Play Movies & TV
+com.google.android.play.games
+com.google.android.youtube.tvmusic
+com.hungama.movies.xtv                              # Hungama Play
+com.alphainventor.filemanager                       # third-party file manager
+
+# Batch 5 - Android extras a TV without camera, printer or SIM doesn't use
+com.android.camera2
+com.android.gallery3d
+com.android.printspooler
+com.google.android.marvin.talkback                  # screen reader: nobody in the house uses it
+com.android.smspush
+com.android.dreams.basic                            # basic screensaver; Ambient mode (backdrop) is the active one and stays

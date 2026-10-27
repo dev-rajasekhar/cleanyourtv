@@ -1,0 +1,6 @@
+priority=2 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=true
+com.google.android.tvlauncher/.MainActivity
+Physical size: 1920x1080
+Physical density: 320
+null
+com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME
